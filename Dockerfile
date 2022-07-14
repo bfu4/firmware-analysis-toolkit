@@ -19,7 +19,7 @@ COPY setup.sh .
 COPY fat.* .
 COPY *.py .
 COPY *.txt .
-COPY qemu-builds . i
+COPY qemu-builds .
 
 RUN pip install -r ./requirements.txt
 
