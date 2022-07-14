@@ -1,4 +1,4 @@
-FROM ubuntu:latest as build
+FROM ubuntu:latest
 
 COPY patches /patches
 
