@@ -1,0 +1,11 @@
+35a36,40
+> 
+> # -> GREYNOISE
+> patch -p0 < ../patches/patch1.txt
+> # <- GREYNOISE
+> 
+36a42,45
+> 
+> # -> GREYNOISE
+> sed -i '/-Werror/d' /tmp/sasquatch/squashfs4.3/squashfs-tools/Makefile
+> # <- GREYNOISE

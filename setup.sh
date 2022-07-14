@@ -1,8 +1,6 @@
 #!/bin/sh
 
 set -e
-sudo apt update
-sudo apt install -y python3-pip python3-pexpect unzip busybox-static fakeroot kpartx snmp uml-utilities util-linux vlan qemu-system-arm qemu-system-mips qemu-system-x86 qemu-utils lsb-core wget tar
 
 echo "Installing binwalk"
 git clone --depth=1 https://github.com/devttys0/binwalk.git
@@ -10,11 +8,16 @@ cd binwalk
 
 # Change to python3 in deps.sh to allow installation on Ubuntu 20.04 (binwalk commit 2b78673)
 sed -i '/REQUIRED_UTILS="wget tar python"/c\REQUIRED_UTILS="wget tar python3"' deps.sh
-sudo ./deps.sh --yes
-sudo python3 ./setup.py install
-sudo -H pip3 install git+https://github.com/ahupp/python-magic
-sudo -H pip3 install git+https://github.com/sviehb/jefferson
 cd ..
+
+# Apply patches
+PATCHDIR=/patches
+
+if [ ! -d "$PATCHDIR" ]; then
+	PATCHDIR=./patches
+fi
+
+patch binwalk/deps.sh "$PATCHDIR"/binwalk/deps.sh.patch
 
 echo "Installing firmadyne"
 # tested with firmadyne commit bcd8bc0
@@ -48,5 +51,4 @@ cd ..
 echo "====================================================="
 echo "Firmware Analysis Toolkit installed successfully!"
 echo "Before running fat.py for the first time,"
-echo "please edit fat.config and provide your sudo password"
 echo "====================================================="

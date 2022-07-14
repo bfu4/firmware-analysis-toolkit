@@ -1,0 +1,11 @@
+--- squashfs-tools/error.h	2022-07-14 11:15:59.754243003 -0400
++++ squashfs-tools/error.h	2022-07-14 11:16:37.047882006 -0400
+@@ -31,7 +31,7 @@
+ extern void progressbar_info(char *fmt, ...);
+ 
+ // CJH: Updated so that TRACE prints if -verbose is specified on the command line
+-int verbose;
++static int verbose;
+ //#ifdef SQUASHFS_TRACE
+ #define TRACE(s, args...) \
+ 		do { \

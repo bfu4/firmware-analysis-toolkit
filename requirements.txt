@@ -1,0 +1,4 @@
+argparse
+pexpect
+configparser
+filemagic
