@@ -17,6 +17,7 @@ RUN apt update
 
 RUN apt install findutils
 RUN xargs apt install --yes < dependencies
+RUN bash -c "ln -s $(which python3) /usr/bin/python"
 
 # Copy files
 COPY setup.sh .
@@ -36,3 +37,12 @@ RUN bash -c "./deps.sh"
 
 # Install binwalk
 RUN python3 setup.py install
+
+WORKDIR /build/firmadyne
+
+RUN useradd -m firmadyne
+RUN echo "firmadyne:firmadyne" | chpasswd && adduser firmadyne sudo
+RUN bash -c "./setup.sh"
+RUN bash -c "./startup.sh"
+
+WORKDIR /build
