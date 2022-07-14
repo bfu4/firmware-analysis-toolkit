@@ -7,3 +7,11 @@
 > 
 86a93
 >     patch /tmp/sasquatch/build.sh "$PATCHDIR"/sasquatch/build.sh.patch && cp "$PATCHDIR"/sasquatch/patches/patch1.txt /tmp/sasquatch/patches/patch1.txt
+173,179d179
+<     echo -n "Continue [y/N]? "
+<     read YN
+<     if [ "$(echo "$YN" | grep -i -e 'y' -e 'yes')" == "" ]
+<     then
+<         echo "Quitting..."
+<         exit 1
+<     fi
