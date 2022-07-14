@@ -21,6 +21,8 @@ COPY *.py .
 COPY *.txt .
 COPY qemu-builds . i
 
+RUN pip install -r ./requirements.txt
+
 # Apply our patches
 RUN bash -c "./setup.sh"
 
