@@ -1,4 +1,4 @@
 argparse
 pexpect
 configparser
-filemagic
+python-magic

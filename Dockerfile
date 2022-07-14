@@ -1,6 +1,10 @@
-FROM ubuntu:latest
+FROM ubuntu:20.04
 
 COPY patches /patches
+
+MAINTAINER Bella Fusari <bfu@greynoise.io>
+
+LABEL version="1.0"
 
 WORKDIR /build
 
