@@ -1,4 +1,4 @@
-binwalk/**
+binwalk/
 !patches/binwalk/**
 firmadyne/
 
