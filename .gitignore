@@ -1,10 +1,13 @@
-binwalk/
+binwalk/**
+!patches/binwalk/**
 firmadyne/
-qemu-builds/**/*
 
-!qemu-builds/README.txt
+qemu-builds/**/*
+qemu-builds/README.txt
 
 *.bin
 *.swp
 
 fat.config
+
+!*.patch

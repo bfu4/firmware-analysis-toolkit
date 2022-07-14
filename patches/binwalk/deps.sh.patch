@@ -1,0 +1,9 @@
+76a77,82
+> PATCHDIR="/patches"
+> 
+> if [ ! -d "$PATCHDIR" ]; then
+> 	PATCHDIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )/../patches"
+> fi
+> 
+86a93
+>     patch /tmp/sasquatch/build.sh "$PATCHDIR"/sasquatch/build.sh.patch && cp "$PATCHDIR"/sasquatch/patches/patch1.txt /tmp/sasquatch/patches/patch1.txt

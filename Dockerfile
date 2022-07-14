@@ -10,3 +10,5 @@ RUN apt update
 
 RUN apt install findutils
 RUN xargs apt install --yes < dependencies
+
+COPY 
