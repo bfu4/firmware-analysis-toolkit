@@ -1,0 +1,69 @@
+#!/bin/bash
+
+# example:
+# docker run --rm -it -v $(pwd):/greynoise -w /build firmware-analysis-toolkit bash -c "./fat.py /greynoise"
+
+DOCKER_ARGS="--rm -it"
+DOCKER_IMAGE="firmware-analysis-toolkit"
+DOCKER_WORKDIR="/build"
+DOCKER_VOLUME=""
+DOCKER_VOLUME_ARGS=""
+DOCKER_CMD="./fat.py"
+DOCKER_CMD_ARGS=""
+
+FIRMWARE_FILE=""
+QEMU=""
+
+COLOR="\033[1;35m"
+RESET="\033[0m"
+NEWLINE="\n"
+
+function pretty() {
+  printf "${COLOR}[!]${RESET} $@${NEWLINE}"
+}
+
+function get_volume() {
+   local volume_info=($(echo "$1" | tr ":" "\n"))
+   local host_wd="${volume_info[0]}"
+   local guest_wd="${volume_info[1]}"
+   DOCKER_VOLUME="$guest_wd"
+   DOCKER_VOLUME_ARGS="-v ${host_wd}:${guest_wd}"
+}
+
+function lets_go() {
+   DOCKER_CMD_ARGS="${QEMU} ${DOCKER_VOLUME}/${FIRMWARE_FILE}"
+   bash -c "docker run ${DOCKER_ARGS} ${DOCKER_VOLUME_ARGS} -w ${DOCKER_WORKDIR} ${DOCKER_IMAGE} ${DOCKER_CMD} ${DOCKER_CMD_ARGS}"
+}
+
+function usage() {
+   pretty './fat -v ${data_directory}:${docker_volume} -f ${file}'
+}
+
+
+while getopts 'f:v:q:' arg;
+do
+  case "$arg" in
+    f)
+	FIRMWARE_FILE="${OPTARG}"
+	;;
+    v) 
+	get_volume "${OPTARG}"
+	;;
+    q) 
+	QEMU="-q ${OPTARG}"
+	;;
+    *) usage && exit;
+  esac
+done
+
+if [[ -z "${DOCKER_VOLUME}" ]]; then
+   pretty "missing data volume"
+   exit
+fi
+
+if [[ -z "${FIRMWARE_FILE}" ]]; then
+   pretty "missing firmware file"
+   exit
+fi
+
+lets_go
