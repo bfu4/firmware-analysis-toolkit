@@ -3,7 +3,7 @@
 # example:
 # docker run --rm -it -v $(pwd):/greynoise -w /build firmware-analysis-toolkit bash -c "./fat.py /greynoise"
 
-DOCKER_ARGS="--rm -it"
+DOCKER_ARGS="--rm -it --network host"
 DOCKER_IMAGE="firmware-analysis-toolkit"
 DOCKER_WORKDIR="/build"
 DOCKER_VOLUME=""
