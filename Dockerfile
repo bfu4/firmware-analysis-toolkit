@@ -42,6 +42,8 @@ WORKDIR /build/firmadyne
 
 RUN useradd -m firmadyne
 RUN echo "firmadyne:firmadyne" | chpasswd && adduser firmadyne sudo
+RUN echo "root:root" | chpasswd
+
 RUN bash -c "./setup.sh"
 RUN bash -c "./startup.sh"
 
