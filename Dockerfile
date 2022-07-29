@@ -46,5 +46,7 @@ RUN echo "root:root" | chpasswd
 
 RUN bash -c "./setup.sh"
 RUN bash -c "./startup.sh"
+RUN mkdir /mount
+RUN mkdir /out
 
 WORKDIR /build

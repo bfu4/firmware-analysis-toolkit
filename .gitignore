@@ -11,3 +11,5 @@ qemu-builds/README.txt
 fat.config
 
 !*.patch
+out/**
+!out/README.md

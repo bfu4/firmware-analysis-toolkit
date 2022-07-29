@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# Annoyed with ./fat?
+# Still want firmadyne to extract?
+# Well I have a great solution for you!
+# Docker is lovely. Mac isn't a favorite.
+# This is a workaround because it's friday and qemu isn't
+# the best way to spend a friday now is it.
+
+RED="\033[1;31m"
+RESET="\033[0m"
+TAB="\t"
+NEWLINE="\n"
+
+FILE="$1"
+FILENAME="$(basename ${FILE})"
+
+DOCKER_IMAGE="firmware-analysis-toolkit"
+DOCKER_WD="/build"
+DOCKER_ARGS="--rm -it"
+DOCKER_VOLUME="${FILE}:/mount/${FILENAME}"
+
+FIRMADYNE_COMMAND="python3 firmadyne/sources/extractor/extractor.py"
+FIRMADYNE_ARGS="-np -nk /mount/${FILENAME} /out"
+
+if [[ -z "${FILE}" ]]; then
+   printf "${RED}[!]${RESET}${TAB}no file provided!${NEWLINE}"
+   exit 1
+fi
+
+printf "${RED}[!]${RESET}${TAB}extracting ${RED}${FILE}${RESET}${NEWLINE}"
+bash -c "docker run ${DOCKER_ARGS} -w ${DOCKER_WD} -v ${DOCKER_VOLUME} -v $(pwd)/out:/out ${DOCKER_IMAGE} ${FIRMADYNE_COMMAND} ${FIRMADYNE_ARGS}"
