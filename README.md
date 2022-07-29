@@ -1,3 +1,19 @@
+# This is a FORK of the Firmware Analysis Toolkit
+The goal is for it to be usable on MacOS (M1) through a Docker container so that
+we can:
+
+1) containerize the world
+2) keep a few things clean while analyzing firmware
+
+Sometimes qemu is angry. We still like how firmadyne extracts.
+There are two scripts in here:
+
+1) fat - makes using the tool pretty
+2) extract - uses firmadyne to extract the world
+
+Both of these tools require the container to be built. To build the container, run `./build-docker.sh`.
+
+
 # Firmware Analysis Toolkit 
 
 FAT is a toolkit built in order to help security researchers analyze and identify vulnerabilities in IoT and embedded device firmware. This is built in order to use for the "*[Offensive IoT Exploitation](https://www.attify-store.com/collections/training/products/offensive-iot-exploitation)*" training conducted by [Attify](https://attify.com). 
