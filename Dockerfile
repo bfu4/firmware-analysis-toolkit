@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM amd64/ubuntu:20.04
 
 COPY patches /patches
 
@@ -44,8 +44,8 @@ RUN useradd -m firmadyne
 RUN echo "firmadyne:firmadyne" | chpasswd && adduser firmadyne sudo
 RUN echo "root:root" | chpasswd
 
-RUN bash -c "./setup.sh"
-RUN bash -c "./startup.sh"
+ENV PATH=/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin:/build/qemu-builds/2.5.0
+
 RUN mkdir /mount
 RUN mkdir /out
 
